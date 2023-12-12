@@ -31,6 +31,40 @@ motor Frills = motor(PORT6, ratio18_1, false);
 
 digital_out Solenoid = digital_out(Brain.ThreeWirePort.A);
 
+//For Pneumatic
+bool pistonSetState = false;  // Tracks set state of piston
+bool waitingOnRelease = false;  // Monitor for release of button so that pistonSetState doesn't continually bounce back and forth every 20ms
+//For Auto before round start.
+bool getHappy = true; 
+void triggerHappy(int timems) 
+{
+  int i = 0;
+  getHappy = true;
+  while (getHappy == true) 
+  {
+    if (i >= timems) { getHappy = false; return;}
+    Catapult.spin(forward);
+    wait(10, msec);
+    i+=10;
+  }
+}
+
+void Pneumatic(bool on){
+  // Solenoid = true;// wrong code
+  // for auto, needs to toggle pneumatic. 
+  return;
+}
+
+void Forward(int x){
+  Drivetrain.driveFor(forward, x, mm);
+  return;
+}
+
+void TurnTo(int x){
+  Drivetrain.turnToHeading(x, degrees);
+  return;
+}
+
 void pre_auton(void) {
   calibrateDrivetrain();
   Catapult.setVelocity(100, percent); // catapult shoot speed
