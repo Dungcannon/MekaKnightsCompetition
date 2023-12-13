@@ -1,12 +1,17 @@
 // -- Config --
-//[Name]    [Motor]   [Port]
-//
-//
-//
-//
-//
-//
+//[Name]              [Port]
+//LeftDriveSmart      1
+//RightDriveSmart     2
+//DrivetrainInertial  3
+//Drivetrain          1,2,3
+//Harvester           4
+//Catapult            5
+//Frills              6 // This is now not using motors so Frills is pointless
+//Solenoid
 // -- Config --
+
+//should set two button system or a hold sys for solenoid.
+//Solenoid.set(true);
 #include "vex.h"
 
 using namespace vex;
@@ -152,6 +157,15 @@ void usercontrol(void) {
         Catapult.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
         Controller1RightShoulderControlMotorsStopped = true;
+      }
+      // check the buttonX status to control Pneumatics
+      if (Controller1.ButtonX.pressing()){
+        //sets solenoid to true while holding. Figure out how to do this but with a two button toggle.
+        Solenoid.set(true);
+      }
+      else {
+        // when Solenoid is not held.
+        Solenoid.set(false);
       }
     }
     wait(20, msec); // Sleep the task for a short amount of time to
