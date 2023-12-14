@@ -39,6 +39,24 @@ digital_out Solenoid = digital_out(Brain.ThreeWirePort.A);
 //For Pneumatic
 bool pistonSetState = false;  // Tracks set state of piston
 bool waitingOnRelease = false;  // Monitor for release of button so that pistonSetState doesn't continually bounce back and forth every 20ms
+
+//For calibrationvoid 
+void calibrateDrivetrain() {
+  wait(200, vex::msec);
+  Brain.Screen.print("Calibrating");
+  Brain.Screen.newLine();
+  Brain.Screen.print("Inertial");
+  DrivetrainInertial.calibrate();
+  while (DrivetrainInertial.isCalibrating()) {
+    wait(25, vex::msec);
+  }
+
+  // Clears the screen and returns the cursor to row 1, column 1.
+  Brain.Screen.clearScreen();
+  Brain.Screen.setCursor(1, 1);
+}// define variable for remote controller enable/disable
+
+
 //For Auto before round start.
 bool getHappy = true; 
 void triggerHappy(int timems) 
