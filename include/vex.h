@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iostream>
 
 #include "v5.h"
 #include "v5_vcs.h"
@@ -16,13 +17,13 @@
   for (int iterator = 0; iterator < iterations; iterator++)
 
 void calibrateDrivetrain() {
-  wait(200, msec);
+  wait(200, vex::msec);
   Brain.Screen.print("Calibrating");
   Brain.Screen.newLine();
   Brain.Screen.print("Inertial");
   DrivetrainInertial.calibrate();
   while (DrivetrainInertial.isCalibrating()) {
-    wait(25, msec);
+    wait(25, vex::msec);
   }
 
   // Clears the screen and returns the cursor to row 1, column 1.
