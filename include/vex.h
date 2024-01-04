@@ -16,7 +16,7 @@
 #define repeat(iterations)                                                     \
   for (int iterator = 0; iterator < iterations; iterator++)
 
-void calibrateDrivetrain() {
+/*void calibrateDrivetrain() {
   wait(200, vex::msec);
   Brain.Screen.print("Calibrating");
   Brain.Screen.newLine();
@@ -29,7 +29,7 @@ void calibrateDrivetrain() {
   // Clears the screen and returns the cursor to row 1, column 1.
   Brain.Screen.clearScreen();
   Brain.Screen.setCursor(1, 1);
-}// define variable for remote controller enable/disable
+}// define variable for remote controller enable/disable*/
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
 bool Controller1LeftShoulderControlMotorsStopped = true;
