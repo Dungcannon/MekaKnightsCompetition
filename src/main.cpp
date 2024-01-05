@@ -7,7 +7,7 @@
 //Harvester           4
 //Catapult            5
 //Frills              6 // This is now not using motors so Frills is pointless
-//Solenoid
+//Solenoid            A 
 // -- Config --
 
 //should set two button system or a hold sys for solenoid.
@@ -93,6 +93,7 @@ void pre_auton(void) {
   Catapult.setVelocity(100, percent); // catapult shoot speed
   Catapult.setMaxTorque(100, percent); // catapult torque
   Catapult.setStopping(hold);
+  Solenoid.set(false);
 }
 
 
@@ -178,11 +179,10 @@ void usercontrol(void) {
       }
       // check the buttonX status to control Pneumatics
       if (Controller1.ButtonX.pressing()){
-        //sets solenoid to true while holding. Figure out how to do this but with a two button toggle.
         Solenoid.set(true);
       }
-      else {
-        // when Solenoid is not held.
+      // check buttonB status
+      if (Controller1.ButtonB.pressing()){ 
         Solenoid.set(false);
       }
     }
