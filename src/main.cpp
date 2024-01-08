@@ -34,7 +34,8 @@ motor Catapult = motor(PORT5, ratio18_1, false);
 
 motor Frills = motor(PORT6, ratio18_1, false);
 
-digital_out Solenoid = digital_out(Brain.ThreeWirePort.A);
+triport ThreeWirePort = triport(PORT22);
+digital_out Solenoid = digital_out(ThreeWirePort.A);
 
 //For Pneumatic
 bool pistonSetState = false;  // Tracks set state of piston
@@ -175,11 +176,14 @@ void usercontrol(void) {
       }
       // check the buttonX status to control Pneumatics
       if (Controller1.ButtonX.pressing()){
-        Solenoid.set(true);
+        Solenoid.set(true); // pneumatic flows
+        wait(1, seconds); // allows time for pneumatic to do its thing
       }
-      // check buttonB status
+
+      // check buttonB status to control Pneumatics
       if (Controller1.ButtonB.pressing()){ 
-        Solenoid.set(false);
+        Solenoid.set(false); // stops flow
+        wait(1, seconds); // same as above.
       }
     }
     wait(20, msec); // Sleep the task for a short amount of time to
