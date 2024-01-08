@@ -65,7 +65,7 @@ void triggerHappy(int timems)
   getHappy = true;
   while (getHappy == true) 
   {
-    if (i >= timems) { getHappy = false; return;}
+    if (i >= timems) { getHappy = false; Catapult.stop(); return;}
     Catapult.spin(forward);
     wait(10, msec);
     i+=10;
