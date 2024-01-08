@@ -72,14 +72,9 @@ void triggerHappy(int timems)
   }
 }
 
-void Pneumatic(bool on){
-  // Solenoid = true;// wrong code
-  // for auto, needs to toggle pneumatic. 
-  return;
-}
 
-void Forward(int x){
-  Drivetrain.driveFor(forward, x, mm);
+void Forward(int xInMM){
+  Drivetrain.driveFor(forward, xInMM, mm);
   return;
 }
 
@@ -102,6 +97,7 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
+  Forward(1000);
 }
 
 
