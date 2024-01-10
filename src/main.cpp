@@ -59,18 +59,12 @@ void calibrateDrivetrain() {
 
 
 //For Auto before round start.
-bool getHappy = true; 
+ 
 void triggerHappy(int timems) 
 {
-  int i = 0;
-  getHappy = true;
-  while (getHappy == true) 
-  {
-    if (i >= timems) { getHappy = false; Catapult.stop(); return;}
-    Catapult.spin(forward);
-    wait(10, msec);
-    i+=10;
-  }
+  Catapult.spin(forward);
+  wait(timems, msec);
+  Catapult.stop();
 }
 
 
@@ -82,6 +76,15 @@ void Forward(int xInMM){
 void TurnTo(int x){
   Drivetrain.turnToHeading(x, degrees);
   return;
+}
+
+void LockIt(){
+  LeftDriveSmart.setStopping(hold);
+  RightDriveSmart.setStopping(hold);
+}
+void UnlockIt(){
+  LeftDriveSmart.setStopping(coast);
+  RightDriveSmart.setStopping(coast);
 }
 
 void pre_auton(void) {
@@ -98,7 +101,9 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  Forward(1000);
+  Catapult.spin(forward);
+  wait(10, seconds);
+  Catapult.stop();
 }
 
 
@@ -143,12 +148,12 @@ void usercontrol(void) {
       // only tell the left drive motor to spin if the values are not in the deadband range
       if (DrivetrainLNeedsToBeStopped_Controller1) {
         LeftDriveSmart.setVelocity(drivetrainLeftSideSpeed, percent);
-        LeftDriveSmart.spin(forward);
+        LeftDriveSmart.spin(forward); // may need to change these to drive like TT squad
       }
       // only tell the right drive motor to spin if the values are not in the deadband range
       if (DrivetrainRNeedsToBeStopped_Controller1) {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
-        RightDriveSmart.spin(forward);
+        RightDriveSmart.spin(forward); // may need to change this as well.
       }
       // check the ButtonL1/ButtonL2 status to control Harvester
       if (Controller1.ButtonL1.pressing()) {
@@ -177,13 +182,21 @@ void usercontrol(void) {
       // check the buttonX status to control Pneumatics
       if (Controller1.ButtonX.pressing()){
         Solenoid.set(true); // pneumatic flows
-        wait(1, seconds); // allows time for pneumatic to do its thing
+        wait(500, msec); // allows time for pneumatic to do its thing
       }
 
       // check buttonB status to control Pneumatics
       if (Controller1.ButtonB.pressing()){ 
         Solenoid.set(false); // stops flow
-        wait(1, seconds); // same as above.
+        wait(500, msec); // same as above.
+      }
+
+      if (Controller1.ButtonDown.pressing()){
+        LockIt();
+      }
+
+      if (Controller1.ButtonUp.pressing()){
+        UnlockIt();
       }
     }
     wait(20, msec); // Sleep the task for a short amount of time to
