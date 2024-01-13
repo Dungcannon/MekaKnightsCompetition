@@ -101,10 +101,16 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
+  /*Forward(-50);
   Catapult.spin(forward);
   wait(10, seconds);
-  Catapult.stop();
-}
+  Catapult.stop();*/
+  //Forward(1000);
+  Drivetrain.setDriveVelocity(100, rpm);
+  Drivetrain.drive(forward);
+  wait(2, seconds);
+  Drivetrain.stop();
+  }
 
 
 
