@@ -106,9 +106,19 @@ void autonomous(void) {
   wait(10, seconds);
   Catapult.stop();*/
   //Forward(1000);
-  Drivetrain.setDriveVelocity(100, rpm);
+  Drivetrain.setDriveVelocity(200, rpm);
   Drivetrain.drive(forward);
-  wait(2, seconds);
+  wait(1.5, seconds);
+  Drivetrain.stop();
+  Drivetrain.drive(reverse);
+  wait(400, msec);
+  Drivetrain.stop();
+  Drivetrain.drive(forward);
+  wait(600, msec);
+  Drivetrain.stop();
+
+  Drivetrain.drive(reverse);
+  wait(500, msec);
   Drivetrain.stop();
   }
 
